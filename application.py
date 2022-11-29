@@ -18,8 +18,14 @@ def main():
             print("Wpisz numer...")
             continue
         if chosen_option == 1:
-            print("game start")
-            engine.run()
+            stats = engine.run()
+            to_print = str(input("Czy chcesz zapisać wynik rundy do pliku? [y/n]: "))
+            if to_print == 'y':
+                write_to_file(stats)
+            else:
+                print("Wyniki rozgrywki:")
+                print(stats)
+
         elif chosen_option == 2:
             rules()
         elif chosen_option == 3:
@@ -37,13 +43,13 @@ def print_options(collection):
 
 def rules():
     print("Tekstowa gra w której komputer (Host) losuje słowo, które jest izogramem \n"
-          " (izogram jest to wyraz w którym nie powtarzają się żadne litery) i informuje użytkownika (Guesser)"
-          " o ilości liter w słowie.\n Użytkownik (Guesser) stara się zgadnąć co to za słowo. Komputer (Host) po"
-          " każdej próbie zwraca liczbę Bulls & Cows.\n Liczba przy słowie Cows oznacza literę występującą"
-          " w słowie lecz na złej pozycji,"
-          " liczba przy słowie Bulls oznacza na poprawną literę i pozycję.\n Gra kończy się kiedy "
+          "(izogram jest to wyraz w którym nie powtarzają się żadne litery) i informuje użytkownika (Guesser)"
+          " o ilości liter w słowie.\nUżytkownik (Guesser) stara się zgadnąć co to za słowo. Komputer (Host) po"
+          "każdej próbie zwraca liczbę Bulls & Cows.\nLiczba przy słowie Cows oznacza literę występującą"
+          "w słowie lecz na złej pozycji,"
+          " liczba przy słowie Bulls oznacza na poprawną literę i pozycję.\nGra kończy się kiedy "
           "liczba przy Bulls będzie taka sama jak długość"
-          " słowa wylosowanego przez komputer. ")
+          " słowa wylosowanego przez komputer.")
 
 
 def choose_difficulty_level(engine):
@@ -98,6 +104,16 @@ def settings(engine):
             is_in_settings = False
         else:
             print("Wpisz numer w przedziale 1-3")
+
+
+def write_to_file(stats):
+    try:
+        with open("highscores.txt", 'a') as file:
+            file.write(f"Wyniki rozgrywki:\n")
+            for stat in stats:
+                file.write(f"{stat}\n")
+    except Exception as e:
+        print(e)
 
 
 if __name__ == '__main__':
