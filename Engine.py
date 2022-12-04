@@ -40,6 +40,4 @@ class Engine:
         return stats_list
 
     def is_game_over(self, host_word, current_stats):
-        if len(host_word) == current_stats.bulls:
-            return True
-        return False
+        return len(host_word) == current_stats.bulls
