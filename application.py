@@ -2,7 +2,7 @@ import Engine
 
 
 def main():
-    is_rolling = True
+    is_game_alive = True
     engine = Engine.Engine()
     menu_options = {
         1: "Nowa gra",
@@ -10,7 +10,7 @@ def main():
         3: "Ustawienia gry",
         4: "Zakończ grę"
     }
-    while is_rolling:
+    while is_game_alive:
         print_options(menu_options)
         try:
             chosen_option = int(input("Wybierz opcję: "))
@@ -31,7 +31,7 @@ def main():
         elif chosen_option == 3:
             settings(engine)
         elif chosen_option == 4:
-            is_rolling = False
+            is_game_alive = False
         else:
             print("Wpisz numer w przedziale 1-4")
 
