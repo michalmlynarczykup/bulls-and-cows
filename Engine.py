@@ -1,12 +1,12 @@
-from Utils import Validator as valid
-from Data import Dictionary as dict
+from Utils import Validator
+from Data import Dictionary
 
 
 class Engine:
     attempts = None
     difficulty = None
-    validator = valid.Validator()
-    dictionary = dict.Dictionary()
+    validator = Validator.Validator()
+    dictionary = Dictionary.Dictionary()
 
     def __init__(self):
         self.attempts = 10
@@ -17,10 +17,11 @@ class Engine:
         counter = 0
         host_word = self.dictionary.get_random_word(self.difficulty)
         print(f"Długość wylosowanego słowa: {len(host_word)}")
+
         while counter < self.attempts:
             print(f"Liczba pozostałych prób: {self.attempts - counter}")
-            guesser_word = input("Twoje słowo: ")
-            guesser_word = str.upper(guesser_word)
+            guesser_word = self.get_user_input()
+
             is_valid = self.validator.validate(guesser_word, host_word)
             if not is_valid:
                 print("Wprowadzone słowo jest niepoprawne")
@@ -41,3 +42,7 @@ class Engine:
 
     def is_game_over(self, host_word, current_stats):
         return len(host_word) == current_stats.bulls
+
+    def get_user_input(self):
+        guesser_word = input("Twoje słowo: ")
+        return str.upper(guesser_word)
